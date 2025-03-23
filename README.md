@@ -74,7 +74,7 @@ To use SageAttention 2.1.1, please **compile from source**:
 ```
 git clone https://github.com/thu-ml/SageAttention.git
 cd sageattention 
-python setup.py install  # or pip install -e .
+pip install -e .
 ```
 
 To benchmark the speed against FlashAttention3, please compile FlashAttention3 from source:
@@ -82,7 +82,7 @@ To benchmark the speed against FlashAttention3, please compile FlashAttention3 f
 git clone https://github.com/Dao-AILab/flash-attention.git --recursive
 git checkout b7d29fb3b79f0b78b1c369a52aaa6628dabfb0d7 # 2.7.2 release
 cd hopper
-python setup.py install
+pip install .
 ```
 
 ## How to Use

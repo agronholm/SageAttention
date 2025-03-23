@@ -14,13 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-import os
 import subprocess
-from packaging.version import parse, Version
-from typing import List, Set
 import warnings
 
-from setuptools import setup, find_packages
+from packaging.version import parse, Version
+from setuptools import setup
 import torch
 from torch.utils.cpp_extension import BuildExtension, CUDAExtension, CUDA_HOME
 
@@ -59,8 +57,7 @@ def get_nvcc_cuda_version(cuda_dir: str) -> Version:
 
     Adapted from https://github.com/NVIDIA/apex/blob/8b7a1ff183741dd8f9b87e7bafd04cfde99cea28/setup.py
     """
-    nvcc_output = subprocess.check_output([cuda_dir + "/bin/nvcc", "-V"],
-                                          universal_newlines=True)
+    nvcc_output = subprocess.check_output([cuda_dir + "/bin/nvcc", "-V"], text=True)
     output = nvcc_output.split()
     release_idx = output.index("release") + 1
     nvcc_cuda_version = parse(output[release_idx].split(",")[0])
@@ -173,16 +170,6 @@ fused_extension = CUDAExtension(
 ext_modules.append(fused_extension)
 
 setup(
-    name='sageattention', 
-    version='2.1.1',  
-    author='SageAttention team',
-    license='Apache 2.0 License',  
-    description='Accurate and efficient plug-and-play low-bit attention.',  
-    long_description=open('README.md', encoding='utf-8').read(),  
-    long_description_content_type='text/markdown', 
-    url='https://github.com/thu-ml/SageAttention', 
-    packages=find_packages(),
-    python_requires='>=3.9',
     ext_modules=ext_modules,
     cmdclass={"build_ext": BuildExtension},
 )
